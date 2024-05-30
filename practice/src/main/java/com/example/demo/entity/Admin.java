@@ -12,88 +12,85 @@ import java.time.LocalDateTime;
 @Table(name = "admins")
 public class Admin {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 
-    private String lastName;
-    private String firstName;
-    private String email;
-    private String password;
-    private LocalDateTime currentSignInAt;
-    private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
+	private String lastName;
+	private String firstName;
+	private String email;
+	private String password;
+	private LocalDateTime currentSignInAt;
+	private LocalDateTime createdAt;
+	private LocalDateTime updatedAt;
 
-    @Transient
-    private String rawPassword; // 平文のパスワード
+	@Transient
+	private String rawPassword;
 
-    // コンストラクタ
-    public Admin() {
-    }
+	public Admin() {
+	}
 
-    // getter, setter
-    public Long getId() {
-        return id;
-    }
+	public Long getId() {
+		return id;
+	}
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    public String getLastName() {
-        return lastName;
-    }
+	public String getLastName() {
+		return lastName;
+	}
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
 
-    public String getFirstName() {
-        return firstName;
-    }
+	public String getFirstName() {
+		return firstName;
+	}
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
 
-    public String getEmail() {
-        return email;
-    }
+	public String getEmail() {
+		return email;
+	}
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
-    public String getPassword() {
-        return password;
-    }
+	public String getPassword() {
+		return password;
+	}
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
+	public void setPassword(String password) {
+		this.password = password;
+	}
 
-    public LocalDateTime getCurrentSignInAt() {
-        return currentSignInAt;
-    }
+	public LocalDateTime getCurrentSignInAt() {
+		return currentSignInAt;
+	}
 
-    public void setCurrentSignInAt(LocalDateTime currentSignInAt) {
-        this.currentSignInAt = currentSignInAt;
-    }
+	public void setCurrentSignInAt(LocalDateTime currentSignInAt) {
+		this.currentSignInAt = currentSignInAt;
+	}
 
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
+	public LocalDateTime getCreatedAt() {
+		return createdAt;
+	}
 
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
+	public void setCreatedAt(LocalDateTime createdAt) {
+		this.createdAt = createdAt;
+	}
 
-    public LocalDateTime getUpdatedAt() {
-        return updatedAt;
-    }
+	public LocalDateTime getUpdatedAt() {
+		return updatedAt;
+	}
 
-    public void setUpdatedAt(LocalDateTime updatedAt) {
-        this.updatedAt = updatedAt;
-    }
+	public void setUpdatedAt(LocalDateTime updatedAt) {
+		this.updatedAt = updatedAt;
+	}
 }
-

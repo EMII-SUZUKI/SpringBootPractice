@@ -13,19 +13,19 @@ import java.util.Optional;
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 
-    private final AdminRepository adminRepository;
+	private final AdminRepository adminRepository;
 
-    @Autowired
-    public UserDetailsServiceImpl(AdminRepository adminRepository) {
-        this.adminRepository = adminRepository;
-    }
+	@Autowired
+	public UserDetailsServiceImpl(AdminRepository adminRepository) {
+		this.adminRepository = adminRepository;
+	}
 
-    @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        Optional<Admin> adminOptional = adminRepository.findByEmail(email);
-        Admin admin = adminOptional.orElseThrow(() -> new UsernameNotFoundException("User Not Found with email: " + email));
+	@Override
+	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+		Optional<Admin> adminOptional = adminRepository.findByEmail(email);
+		Admin admin = adminOptional
+				.orElseThrow(() -> new UsernameNotFoundException("User Not Found with email: " + email));
 
-        return UserDetailsImpl.build(admin);
-    }
+		return UserDetailsImpl.build(admin);
+	}
 }
-

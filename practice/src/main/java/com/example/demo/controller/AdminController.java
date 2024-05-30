@@ -19,93 +19,92 @@ import java.util.stream.StreamSupport;
 @RequestMapping("/admin")
 public class AdminController {
 
-    private final AdminService adminService;
-    private final ContactRepository contactRepository;
+	private final AdminService adminService;
+	private final ContactRepository contactRepository;
 
-    public AdminController(AdminService adminService, ContactRepository contactRepository) {
-        this.adminService = adminService;
-        this.contactRepository = contactRepository;
-    }
+	public AdminController(AdminService adminService, ContactRepository contactRepository) {
+		this.adminService = adminService;
+		this.contactRepository = contactRepository;
+	}
 
-    @GetMapping("/signup")
-    public String signupForm(Model model) {
-        model.addAttribute("admin", new Admin());
-        return "admin/signup";
-    }
+	@GetMapping("/signup")
+	public String signupForm(Model model) {
+		model.addAttribute("admin", new Admin());
+		return "admin/signup";
+	}
 
-    @PostMapping("/signup")
-    public String signup(@ModelAttribute Admin admin) {
-        adminService.saveAdmin(admin); // PasswordEncoderでパスワードは自動的にエンコードされる
-        return "redirect:/admin/signin";
-    }
+	@PostMapping("/signup")
+	public String signup(@ModelAttribute Admin admin) {
+		adminService.saveAdmin(admin);
+		return "redirect:/admin/signin";
+	}
 
-    @GetMapping("/signin")
-    public String showSigninForm(Model model) {
-        model.addAttribute("admin", new Admin());
-        return "admin/signin";
-    }
+	@GetMapping("/signin")
+	public String showSigninForm(Model model) {
+		model.addAttribute("admin", new Admin());
+		return "admin/signin";
+	}
 
-    @GetMapping("/contacts")
-    public String showContactList(Model model) {
-        Iterable<Contact> contactsIterable = contactRepository.findAll();
-        List<Contact> contacts = StreamSupport.stream(contactsIterable.spliterator(), false)
-                .collect(Collectors.toList());
-        model.addAttribute("contacts", contacts);
-        return "admin/contacts-list";
-    }
+	@GetMapping("/contacts")
+	public String showContactList(Model model) {
+		Iterable<Contact> contactsIterable = contactRepository.findAll();
+		List<Contact> contacts = StreamSupport.stream(contactsIterable.spliterator(), false)
+				.collect(Collectors.toList());
+		model.addAttribute("contacts", contacts);
+		return "admin/contacts-list";
+	}
 
-    @GetMapping("/contacts/{id}")
-    public String showContactDetail(@PathVariable("id") Long id, Model model) {
-        Optional<Contact> contact = contactRepository.findById(id);
-        if (contact.isPresent()) {
-            model.addAttribute("contact", contact.get());
-            return "admin/contacts-detail";
-        } else {
-            return "redirect:/admin/contacts";
-        }
-    }
+	@GetMapping("/contacts/{id}")
+	public String showContactDetail(@PathVariable("id") Long id, Model model) {
+		Optional<Contact> contact = contactRepository.findById(id);
+		if (contact.isPresent()) {
+			model.addAttribute("contact", contact.get());
+			return "admin/contacts-detail";
+		} else {
+			return "redirect:/admin/contacts";
+		}
+	}
 
-    @GetMapping("/contacts/{id}/edit")
-    public String showContactEditForm(@PathVariable("id") Long id, Model model) {
-        Optional<Contact> contact = contactRepository.findById(id);
-        if (contact.isPresent()) {
-            model.addAttribute("contact", contact.get());
-            return "admin/contacts-edit";
-        } else {
-            return "redirect:/admin/contacts";
-        }
-    }
+	@GetMapping("/contacts/{id}/edit")
+	public String showContactEditForm(@PathVariable("id") Long id, Model model) {
+		Optional<Contact> contact = contactRepository.findById(id);
+		if (contact.isPresent()) {
+			model.addAttribute("contact", contact.get());
+			return "admin/contacts-edit";
+		} else {
+			return "redirect:/admin/contacts";
+		}
+	}
 
-    @PostMapping("/contacts/{id}/edit")
-    public String updateContact(@PathVariable Long id, @ModelAttribute("contact") Contact updatedContact, RedirectAttributes attributes) {
-        Contact existingContact = contactRepository.findById(id).orElse(null);
-        if (existingContact == null) {
-            return "redirect:/admin/contacts";
-        }
+	@PostMapping("/contacts/{id}/edit")
+	public String updateContact(@PathVariable Long id, @ModelAttribute("contact") Contact updatedContact,
+			RedirectAttributes attributes) {
+		Contact existingContact = contactRepository.findById(id).orElse(null);
+		if (existingContact == null) {
+			return "redirect:/admin/contacts";
+		}
 
-        existingContact.setLastName(updatedContact.getLastName());
-        existingContact.setFirstName(updatedContact.getFirstName());
-        existingContact.setEmail(updatedContact.getEmail());
-        existingContact.setPhone(updatedContact.getPhone());
-        existingContact.setZipCode(updatedContact.getZipCode());
-        existingContact.setAddress(updatedContact.getAddress());
-        existingContact.setBuildingName(updatedContact.getBuildingName());
-        existingContact.setContactType(updatedContact.getContactType());
-        existingContact.setBody(updatedContact.getBody());
-        existingContact.setUpdatedAt(LocalDateTime.now());
+		existingContact.setLastName(updatedContact.getLastName());
+		existingContact.setFirstName(updatedContact.getFirstName());
+		existingContact.setEmail(updatedContact.getEmail());
+		existingContact.setPhone(updatedContact.getPhone());
+		existingContact.setZipCode(updatedContact.getZipCode());
+		existingContact.setAddress(updatedContact.getAddress());
+		existingContact.setBuildingName(updatedContact.getBuildingName());
+		existingContact.setContactType(updatedContact.getContactType());
+		existingContact.setBody(updatedContact.getBody());
+		existingContact.setUpdatedAt(LocalDateTime.now());
 
-        contactRepository.save(existingContact);
+		contactRepository.save(existingContact);
 
-        // Flash属性に更新したお問い合わせのIDを渡す
-        attributes.addFlashAttribute("updatedContactId", existingContact.getId());
+		attributes.addFlashAttribute("updatedContactId", existingContact.getId());
 
-        return "redirect:/admin/contacts";
-    }
+		return "redirect:/admin/contacts";
+	}
 
-    @PostMapping("/contacts/{id}/delete")
-    public String deleteContact(@PathVariable("id") Long id) {
-        contactRepository.deleteById(id);
-        return "redirect:/admin/contacts";
-    }
+	@PostMapping("/contacts/{id}/delete")
+	public String deleteContact(@PathVariable("id") Long id) {
+		contactRepository.deleteById(id);
+		return "redirect:/admin/contacts";
+	}
 }
-

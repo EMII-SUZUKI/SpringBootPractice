@@ -7,16 +7,15 @@ import java.util.List;
 
 public interface ContactService {
 
-    List<Contact> findAllContacts();
+	List<Contact> findAllContacts();
 
-    Contact findContactById(Long id);
+	Contact findContactById(Long id);
 
-    Contact updateContact(Contact updatedContact);
+	Contact updateContact(Contact updatedContact);
 
-    void deleteContactById(Long id);
+	void deleteContactById(Long id);
 
-    void saveContact(ContactForm contactForm);
+	void saveContact(ContactForm contactForm);
 
-    Contact updateContact1(Contact updatedContact);
+	Contact updateContact1(Contact updatedContact);
 }
-
