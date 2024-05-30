@@ -1,43 +1,87 @@
 package com.example.demo.form;
 
-import java.io.Serializable;
+public class ContactForm {
+    private String lastName;
+    private String firstName;
+    private String email;
+    private String phone;
+    private String zipCode;
+    private String address;
+    private String buildingName;
+    private String contactType;
+    private String body;
 
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.Size;
-import lombok.Data;
+    // ゲッターとセッター
+    public String getLastName() {
+        return lastName;
+    }
 
-@Data
-public class ContactForm implements Serializable {
-   @NotBlank
-   private String lastName;
-   
-   @NotBlank
-   private String firstName;
-   
-   @NotBlank
-   @Email
-   private String email;
-   
-   @NotBlank
-   @Size(min = 10, max = 11)
-   private String phone;
-   
-   @NotBlank
-   @Pattern(regexp= "[0-9]{3}[-]{0,1}[0-9]{4}")
-   private String zipCode;
-   
-   @NotBlank
-   private String address;
-   
-   @NotBlank
-   private String buildingName;
-   
-   @NotEmpty
-   private String contactType;
-   
-   @NotBlank
-   private String body;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getZipCode() {
+        return zipCode;
+    }
+
+    public void setZipCode(String zipCode) {
+        this.zipCode = zipCode;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getBuildingName() {
+        return buildingName;
+    }
+
+    public void setBuildingName(String buildingName) {
+        this.buildingName = buildingName;
+    }
+
+    public String getContactType() {
+        return contactType;
+    }
+
+    public void setContactType(String contactType) {
+        this.contactType = contactType;
+    }
+
+    public String getBody() {
+        return body;
+    }
+
+    public void setBody(String body) {
+        this.body = body;
+    }
 }
+
